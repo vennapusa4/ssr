@@ -1,7 +1,8 @@
 import React from "react";
 import renderToString from "react-dom/server";
 import Home from "./client/components/Home";
-export  default ()=>{
+import { Provider } from 'react-redux';
+export  default (req,store)=>{
     return `
  <html>
  <head>
