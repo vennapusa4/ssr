@@ -7002,20 +7002,15 @@ module.exports = memoizeStringOnly;
 
 
 var express = __webpack_require__(52);
-var React = __webpack_require__(16);
-var renderToString = __webpack_require__(108).renderToString;
-var HelloWorld = __webpack_require__(117).default;
+var render = __webpack_require__(118).default;
 var app = express();
 app.use(express.static('public'));
-app.get('/', function (req, res) {
-   var content = renderToString(React.createElement(HelloWorld, null));
-   var html = '\n<html>\n<head>\n<title>Page Title</title>\n</head>\n<body>\n<div id="root">aaa\n<script src="bundle.js"></script>\n</div>\n</body>\n</html>';
-
-   res.send(html);
+app.get('*', function (req, res) {
+  res.send(render());
 });
 
 app.listen(3000, function () {
-   console.log('Listening on port 3000');
+  console.log('Listening on port 3000');
 });
 
 /***/ }),
@@ -22145,6 +22140,35 @@ var HelloWorld = function HelloWorld() {
 };
 
 exports.default = HelloWorld;
+
+/***/ }),
+/* 118 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(16);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _server = __webpack_require__(108);
+
+var _server2 = _interopRequireDefault(_server);
+
+var _Home = __webpack_require__(117);
+
+var _Home2 = _interopRequireDefault(_Home);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function () {
+    return "\n <html>\n <head>\n <title>Page Title</title>\n </head>\n <body>\n <div id=\"root\">aaa\n <script src=\"bundle.js\"></script>\n </div>\n </body>\n </html>";
+};
 
 /***/ })
 /******/ ]);

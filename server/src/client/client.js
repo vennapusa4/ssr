@@ -1,8 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Home from "./components/Home"
+import  { BrowserRouter as Router } from 'react-router-dom';
+import Routes from "../Routes";
 ReactDOM.render(
-    <Home/>,
-    document.querySelector('#root')
+    <div>
+      <Router>
+        <Routes/>
+      </Router>
+    </div>
+    ,document.querySelector('#root')
   );
   
