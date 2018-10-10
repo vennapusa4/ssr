@@ -22,5 +22,6 @@ updation
 hydration
 
 regeneratorRuntime is not defined
+it occur bcoz of aync await
 
 */

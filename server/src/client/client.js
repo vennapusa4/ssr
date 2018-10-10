@@ -17,7 +17,7 @@ const store = createStore(
 ReactDOM.render(
       <Provider store={store}>
       <Router>
-        <Routes/>
+        {renderRoutes(Routes)}
       </Router>
       </Provider>
     ,document.querySelector('#root')
