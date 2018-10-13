@@ -1,10 +1,9 @@
 import React from 'react';
-import Home from './client/components/Home';
+import Home from './client/pages/Home';
 // import HomePage from './pages/HomePage';
- import UsersList,{loadData} from './client/components/usersComponent';
+ import UsersList from './client/pages/usersComponent';
 // import NotFoundPage from './pages/NotFoundPage';
 // import AdminsListPage from './pages/AdminsListPage';
-
 export default [
      {
         component:Home,
@@ -12,8 +11,7 @@ export default [
         exact: true
       },
       {
-        loadData,
-        component:UsersList,
+        ...UsersList,
         path: '/users'
       }
      

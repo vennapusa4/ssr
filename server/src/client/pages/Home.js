@@ -8,3 +8,4 @@ const HelloWorld = () => (
    );
    
    export default HelloWorld;
+   //export as object

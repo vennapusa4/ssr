@@ -1,14 +1,18 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import reducers from "../reducers";
+import axios from "axios";
 
-export default () => {
-    
-  
+export default (req) => {
+    const axiosInstance = axios.create({
+        baseURL: 'http://react-ssr-api.herokuapp.com/', 
+        headers:{cookie:req.get('cookie')||""}
+      });
+      //the api think req is coming from real user
     const store = createStore(
       reducers,
       {},
-      applyMiddleware(thunk)
+      applyMiddleware(thunk.withExtraArgument(axiosInstance))
     );
   
     return store;

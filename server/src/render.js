@@ -1,6 +1,6 @@
 import React from "react";
 import { renderToString } from 'react-dom/server';
-import Home from "./client/components/Home";
+import Home from "./client/pages/Home";
 import { Provider } from 'react-redux';
 import { renderRoutes } from "react-router-config";
 import { StaticRouter } from 'react-router-dom';
@@ -23,7 +23,12 @@ export  default (req,store,context)=>{
  </head>
  <body>
  <div id="root">${content}
- <script src="bundle.js"></script>
+ <script>
+ window.INITIAL_STATE=${JSON.stringify(store.getState())}
+ console.log(window.INITIAL_STATE)
+ </script>
+  <script src="bundle.js"></script>
+
  </div>
  </body>
  </html>`;

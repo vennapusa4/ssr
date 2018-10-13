@@ -7095,27 +7095,20 @@ function verifyPlainObject(value, displayName, methodName) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchUsers = exports.FETCH_USERS = undefined;
-
-var _axios = __webpack_require__(145);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 var FETCH_USERS = exports.FETCH_USERS = 'fetch_users';
 var fetchUsers = exports.fetchUsers = function fetchUsers() {
   return function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch, getState, api) {
       var res;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _axios2.default.get('http://react-ssr-api.herokuapp.com/users');
+              return api.get('/users');
 
             case 2:
               res = _context.sent;
@@ -7134,7 +7127,7 @@ var fetchUsers = exports.fetchUsers = function fetchUsers() {
       }, _callee, undefined);
     }));
 
-    return function (_x) {
+    return function (_x, _x2, _x3) {
       return _ref.apply(this, arguments);
     };
   }();
@@ -8482,8 +8475,15 @@ __webpack_require__(287);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var store = (0, _redux.createStore)(_reducers2.default, {}, (0, _redux.applyMiddleware)(_reduxThunk2.default));
-_reactDom2.default.render(_react2.default.createElement(
+var axiosInstance = _axios2.default.create({
+  baseURL: '/api'
+});
+//which means when u make rew it will apeend api 
+//ex /users means /api/users
+var store = (0, _redux.createStore)(_reducers2.default, window.INITIAL_STATE, (0, _redux.applyMiddleware)(_reduxThunk2.default.withExtraArgument(axiosInstance)));
+console.log("hi");
+console.log(window.INITIAL_STATE);
+_reactDom2.default.hydrate(_react2.default.createElement(
   _reactRedux.Provider,
   { store: store },
   _react2.default.createElement(
@@ -31115,6 +31115,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+// import HomePage from './pages/HomePage';
+
+
 var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
@@ -31131,17 +31135,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // import NotFoundPage from './pages/NotFoundPage';
 // import AdminsListPage from './pages/AdminsListPage';
-
 exports.default = [{
   component: _Home2.default,
   path: '/',
   exact: true
-}, {
-  loadData: _usersComponent.loadData,
-  component: _usersComponent2.default,
+}, _extends({}, _usersComponent2.default, {
   path: '/users'
-}];
-// import HomePage from './pages/HomePage';
+})];
 
 /***/ }),
 /* 227 */
@@ -31180,6 +31180,7 @@ var HelloWorld = function HelloWorld() {
 };
 
 exports.default = HelloWorld;
+//export as object
 
 /***/ }),
 /* 228 */
@@ -31191,7 +31192,6 @@ exports.default = HelloWorld;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.loadData = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -31264,8 +31264,10 @@ function loadData(store) {
   console.log(111);
   return store.dispatch((0, _actions.fetchUsers)());
 }
-exports.loadData = loadData;
-exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchUsers: _actions.fetchUsers })(UsersList);
+exports.default = {
+  loadData: loadData,
+  component: (0, _reactRedux.connect)(mapStateToProps, { fetchUsers: _actions.fetchUsers })(UsersList)
+};
 
 /***/ }),
 /* 229 */
